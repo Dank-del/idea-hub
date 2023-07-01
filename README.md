@@ -1,14 +1,9 @@
-# next-template
+# IdeaHub
 
-A Next.js 13 template for building apps with Radix UI and Tailwind CSS.
+Hub for all ideas creative
+to bring a better future to mankind
 
-## Usage
-
-```bash
-npx create-next-app -e https://github.com/shadcn/next-template
-```
-
-## Features
+## Tech Stack
 
 - Next.js 13 App Directory
 - Radix UI Primitives
@@ -16,7 +11,6 @@ npx create-next-app -e https://github.com/shadcn/next-template
 - Icons from [Lucide](https://lucide.dev)
 - Dark mode with `next-themes`
 - Tailwind CSS class sorting, merging and linting.
-
-## License
-
-Licensed under the [MIT license](https://github.com/shadcn/ui/blob/main/LICENSE.md).
+- Prisma ORM
+- tRPC
+- Auth.js (formerly known as Next Auth)
