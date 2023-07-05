@@ -29,6 +29,26 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
+model Upvote {
+  id        String   @id @default(cuid())
+  userId    String
+  ideaId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  idea      Idea     @relation(fields: [ideaId], references: [id], onDelete: Cascade)
+}
+
+model Downvote {
+  id        String   @id @default(cuid())
+  userId    String
+  ideaId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  idea      Idea     @relation(fields: [ideaId], references: [id], onDelete: Cascade)
+}
+
 model Idea {
   id        String     @id @default(cuid())
   title     String
@@ -38,7 +58,9 @@ model Idea {
   updatedAt DateTime   @updatedAt
   user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   Resource  Resource[]
-  Comment   Comment[]
+  comments  Comment[]
+  upvotes   Upvote[]
+  downvotes Downvote[]
 }
 
 model Resource {
@@ -82,6 +104,8 @@ model User {
   mentorshipsGiven    Mentorship[]     @relation("mentor")
   mentorshipsReceived Mentorship[]     @relation("mentee")
   learningModules     LearningModule[]
+  Upvote              Upvote[]
+  Downvote            Downvote[]
 }
 
 model VerificationToken {

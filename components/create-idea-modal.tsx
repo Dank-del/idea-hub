@@ -32,10 +32,21 @@ export default function CreateIdeaModal() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values)
-    ideaProcedure.mutate({
+    await ideaProcedure.mutateAsync({
       title: values.title,
       content: values.content
     })
+    // Create the escape key press event
+    const escapeEvent = new KeyboardEvent('keydown', {
+      key: 'Escape',
+      code: 'Escape',
+      keyCode: 27,
+      which: 27,
+      bubbles: true,
+    });
+
+    // Dispatch the event on the document
+    document.dispatchEvent(escapeEvent);
   }
 
   return (
