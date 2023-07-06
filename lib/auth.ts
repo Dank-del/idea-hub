@@ -2,6 +2,7 @@ import type {NextAuthOptions} from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import {PrismaAdapter} from "@auth/prisma-adapter";
 import {PrismaClient} from '@prisma/client';
+
 export function getBaseUrl() {
   if (typeof window !== 'undefined')
     // browser should use relative path
@@ -28,7 +29,14 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      authorization: getBaseUrl()
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
+          redirect_uri: `${getBaseUrl()}/api/auth/callback/google`,
+        }
+      }
     })
   ],
   secret: process.env.NEXT_SECRET
