@@ -3,12 +3,11 @@
 import { signIn, signOut } from "next-auth/react";
 import {buttonVariants} from "@/components/ui/button";
 import {Icons} from "@/components/icons";
-import {getBaseUrl} from "@/app/trpc";
 
 export const LoginButton = () => {
   return (
     <button style={{ marginRight: 10 }} onClick={() => signIn('google', {
-      callbackUrl: getBaseUrl()
+      callbackUrl: `https://${window.location.hostname}`
     })}>
       <div>
         <div
