@@ -25,6 +25,14 @@ export const getIdeasProcedure = publicProcedure.query(async () => {
   return await prisma.idea.findMany();
 })
 
+export const getIdeaProcedure = authenticatedProcedure.input(z.string()).query(async (req) => {
+  return await prisma.idea.findFirst({
+    where: {
+      id: req.input
+    }
+  });
+})
+
 export const deleteIdeaProcedure = authenticatedProcedure.input(z.string()).mutation(async (req) => {
   const idea = await prisma.idea.findFirst({
     where: {

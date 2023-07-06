@@ -1,4 +1,10 @@
-import {createIdeaProcedure, deleteIdeaProcedure, getIdeasProcedure, updateIdeaProcedure} from "@/app/trpc/idea";
+import {
+  createIdeaProcedure,
+  deleteIdeaProcedure,
+  getIdeaProcedure,
+  getIdeasProcedure,
+  updateIdeaProcedure
+} from "@/app/trpc/idea";
 import {authenticatedProcedure, router} from "@/lib/trpc";
 
 
@@ -13,7 +19,8 @@ export const appRouter = router({
       "user": req.ctx.user,
       "session": req.ctx.session
     }
-  })
+  }),
+  getIdea: getIdeaProcedure
 });
 
 export type AppRouter = typeof appRouter;
