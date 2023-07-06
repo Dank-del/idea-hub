@@ -6,7 +6,9 @@ import {Icons} from "@/components/icons";
 
 export const LoginButton = () => {
   return (
-    <button style={{ marginRight: 10 }} onClick={() => signIn('google')}>
+    <button style={{ marginRight: 10 }} onClick={() => signIn('google', {
+      callbackUrl: `https://${window.location.hostname}`
+    })}>
       <div>
         <div
           className={buttonVariants({
