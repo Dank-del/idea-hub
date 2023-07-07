@@ -6,10 +6,15 @@ import {ThemeToggle} from "@/components/theme-toggle"
 import {LoginButton} from "@/components/buttons.component";
 import {useSession} from "next-auth/react";
 import {UserNav} from "@/components/user-nav";
+import { ClassicSpinner } from "react-spinners-kit";
+
 
 export function SiteHeader() {
   const {data, status} = useSession();
   let jsx = <LoginButton/>;
+  if (status === "loading") {
+    jsx = <ClassicSpinner color="#FF5733" />;
+  }
   if (status === "authenticated") {
     jsx = <UserNav name={data?.user?.name!} email={data?.user?.email!} img={data?.user?.image!}/>
   }
