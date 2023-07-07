@@ -54,12 +54,12 @@ export default function IdeaGrid() {
                   </Accordion>
                 </>}
                 <AlertDialogFooter>
+                  <AlertDialogCancel>Close</AlertDialogCancel>
                   {getMeQuery?.data?.user.id === d.userId &&
                     <AlertDialogAction
                       onClick={async () => await onDelete(d.id)}
                       className="bg-red-600 text-white">Delete
                     </AlertDialogAction>}
-                  <AlertDialogCancel>Close</AlertDialogCancel>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
