@@ -15,6 +15,10 @@ import UpdateIdeaForm from "@/components/update-idea-form";
 export default function IdeaGrid() {
   const ideasProcedure = trpc.getIdeas.useQuery();
   const getMeQuery = trpc.getMe.useQuery()
+  const deleteMutation = trpc.deleteIdea.useMutation();
+  const onDelete = async (id: string) => {
+    await deleteMutation.mutateAsync(id);
+  }
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-5 lg:gap-8">
       {ideasProcedure.data && (ideasProcedure.data.length > 0) && ideasProcedure.data.map(d => {
@@ -22,7 +26,11 @@ export default function IdeaGrid() {
           <React.Suspense key={d.id} fallback={<>...</>}>
             <AlertDialog>
               <AlertDialogTrigger>
-                <IdeaCard title={d.title} content={d.content} upvotes={34} downvotes={34} createdAt={d.createdAt}
+                <IdeaCard userId={d.userId} title={d.title}
+                          content={d.content}
+                          upvotes={34}
+                          downvotes={34}
+                          createdAt={d.createdAt}
                           comments={34}/>
               </AlertDialogTrigger>
               <AlertDialogContent>
@@ -46,8 +54,12 @@ export default function IdeaGrid() {
                   </Accordion>
                 </>}
                 <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction>Continue</AlertDialogAction>
+                  {getMeQuery?.data?.user.id === d.userId &&
+                    <AlertDialogAction
+                      onClick={async () => await onDelete(d.id)}
+                      className="bg-red-600 text-white">Delete
+                    </AlertDialogAction>}
+                  <AlertDialogCancel>Close</AlertDialogCancel>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>

@@ -56,6 +56,8 @@ export const deleteIdeaProcedure = authenticatedProcedure.input(z.string()).muta
   })
 })
 
+
+
 export const updateIdeaProcedure = authenticatedProcedure.input(z.object({
   title: z.string().min(10),
   content: z.string().min(30),

@@ -5,7 +5,9 @@ import {
   getIdeasProcedure,
   updateIdeaProcedure
 } from "@/app/trpc/idea";
-import {authenticatedProcedure, router} from "@/lib/trpc";
+import {z} from 'zod';
+import {authenticatedProcedure, publicProcedure, router} from "@/lib/trpc";
+import {prisma} from "@/lib/auth";
 
 
 // this is our RPC API
@@ -20,7 +22,22 @@ export const appRouter = router({
       "session": req.ctx.session
     }
   }),
-  getIdea: getIdeaProcedure
+  getIdea: getIdeaProcedure,
+  getUser: publicProcedure.input(z.string()).query(async (req) => {
+    const user = await prisma.user.findFirst({
+      where: {
+        id: req.input
+      }
+    })
+    if (!user) {
+      return
+    }
+    return {
+      "name": user.name,
+      "email": user.id,
+      "img": user.image
+    }
+  })
 });
 
 export type AppRouter = typeof appRouter;
