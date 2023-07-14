@@ -1,5 +1,5 @@
 import {z} from "zod";
-import {prisma} from "@/lib/auth";
+import prisma from "@/lib/prisma";
 import {authenticatedProcedure, publicProcedure} from "@/lib/trpc";
 import {TRPCError} from "@trpc/server";
 

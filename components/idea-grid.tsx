@@ -11,6 +11,9 @@ import {
 } from "@/components/ui/alert-dialog";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion";
 import UpdateIdeaForm from "@/components/update-idea-form";
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import {Input} from "@/components/ui/input";
+import {Button} from "@/components/ui/button";
 
 export default function IdeaGrid() {
   const ideasProcedure = trpc.getIdeas.useQuery();
@@ -53,6 +56,41 @@ export default function IdeaGrid() {
                     </AccordionItem>
                   </Accordion>
                 </>}
+                <Accordion type="single" collapsible>
+                  <AccordionItem value="update-form">
+                    <AccordionTrigger>Comments</AccordionTrigger>
+                    <AccordionContent>
+                      <div className="flex flex-col gap-5">
+                        <div className="flex items-center space-x-4">
+                          <Avatar>
+                            <AvatarImage src="/avatars/01.png"/>
+                            <AvatarFallback>OM</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <p className="text-sm font-medium leading-none">Sofia Davis</p>
+                            <p className="text-xs text-muted-foreground">m@example.com</p>
+                            <p className="text-sm">This is a comment</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-4">
+                          <Avatar>
+                            <AvatarImage src="/avatars/01.png"/>
+                            <AvatarFallback>OM</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <p className="text-sm font-medium leading-none">Mahesh</p>
+                            <p className="text-xs text-muted-foreground">mahesh@example.com</p>
+                            <p className="text-sm">great post</p>
+                          </div>
+                        </div>
+                      </div>
+                      <form onSubmit={async (e) => {e.preventDefault()}}>
+                        <Input className="mt-6" placeholder={`Comment as ${getMeQuery?.data?.user?.name}`}/>
+                        <Button className="mt-3" type="submit">Post Comment</Button>
+                      </form>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Close</AlertDialogCancel>
                   {getMeQuery?.data?.user.id === d.userId &&

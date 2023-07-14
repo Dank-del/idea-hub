@@ -7,7 +7,8 @@ import {
 } from "@/app/trpc/idea";
 import {z} from 'zod';
 import {authenticatedProcedure, publicProcedure, router} from "@/lib/trpc";
-import {prisma} from "@/lib/auth";
+import prisma from "@/lib/prisma";
+
 
 
 // this is our RPC API

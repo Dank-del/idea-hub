@@ -1,6 +1,7 @@
 import {initTRPC, TRPCError} from "@trpc/server";
 import {getServerSession} from "next-auth";
-import {authOptions, prisma} from "@/lib/auth";
+import {authOptions} from "@/lib/auth";
+import prisma from "@/lib/prisma";
 
 export const t = initTRPC.create();
 export const router = t.router;
